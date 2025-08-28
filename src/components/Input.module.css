@@ -1,0 +1,29 @@
+.label {
+  font-weight: 700;
+  color: black;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 300px;
+  gap: 10px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.input::before {
+  position: absolute;
+  content: ">";
+  color: red;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.input:focus {
+  outline: solid 2px red;
+}
