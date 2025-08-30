@@ -1,5 +1,6 @@
 // {name, job} = { name: string, job: string }
 // De-structuring props in the function parameter
+//
 const Card = ({ name, job, data }) => {
   return (
     <div>

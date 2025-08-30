@@ -54,6 +54,7 @@ const App = () => {
     console.log(count);
   };
 
+  // Logger
   const Logger = (msg) => {
     console.log(msg);
   };
