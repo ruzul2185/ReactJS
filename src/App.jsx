@@ -1,51 +1,37 @@
 // import Input from "./components/Input";
 // import { useState } from "react";
+// import Login from "./components/Login";
 
 // const App = () => {
-//   const [userData, setUserData] = useState({});
-
-//   const [showPassword, setShowPassword] = useState(false);
-
-//   const handleUserData = (event) => {
-//     const { key, value } = event.target;
-//     setUserData({ ...userData, [key]: value });
-//   };
-
 //   return (
 //     <section id="about">
-//       <form>
-//         <h1>Login</h1>
-//         <Input
-//           label="Username"
-//           type="text"
-//           placeholder="Enter Username"
-//           handleUserData={handleUserData}
-//         />
-//         <Input
-//           label="Password"
-//           type={showPassword ? "text" : "password"}
-//           placeholder="Enter Password"
-//           handleUserData={handleUserData}
-//         />
-//         <div
-//           onClick={() => {
-//             setShowPassword((prev) => !prev);
-//           }}
-//         >
-//           Show Password
-//         </div>
-//         <button type="submit">Submit</button>
-//       </form>
+//       <Login />
 //     </section>
 //   );
 // };
 
 import Card from "./components/Card";
-import { useState } from "react";
+import Post from "./components/Post";
+import { useState, useEffect } from "react";
 
 const App = () => {
   //     getter  setter             initial state
   const [count, setCount] = useState(0);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const data = await fetch("https://jsonplaceholder.typicode.com/posts");
+      const response = await data.json();
+      setPosts(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClick = () => {
     setCount((currentState) => currentState + 1);
@@ -74,6 +60,9 @@ const App = () => {
 
       <h1>{count}</h1>
       <button onClick={handleClick}>Click Me</button>
+      {posts.map((post) => (
+        <Post title={post.title} />
+      ))}
     </div>
   );
 };
