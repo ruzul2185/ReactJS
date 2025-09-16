@@ -3,12 +3,31 @@ import { useState } from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
 
+import { BrowserRouter, Routes, Route } from "react-router";
+
 const App = () => {
   return (
-    <section id="about">
-      {/* <Login /> */}
-      <Register />
-    </section>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <section>
+              <Login />
+            </section>
+          }
+        />
+        <Route
+          path="/register/:id"
+          element={
+            <section>
+              <Register />
+            </section>
+          }
+        />
+        <Route path="*" element={<div>404 not found</div>} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useTheme } from "../context/ThemeContext";
+import { NavLink, useParams, useSearchParams } from "react-router";
 const Register = () => {
   const inputRef = useRef(null);
 
@@ -11,6 +12,11 @@ const Register = () => {
     inputRef.current.value = event.target.value;
   };
 
+  // localhost:5173/product/mango?color=blue&size=small
+
+  const id = useParams();
+  console.log(id);
+  // fetch data of apple, then show this
   return (
     <div>
       <input ref={inputRef} type="text" onChange={printValue} />
@@ -25,6 +31,7 @@ const Register = () => {
       >
         Theme
       </button>
+      <NavLink to="/login">Go to Login</NavLink>
     </div>
   );
 };
