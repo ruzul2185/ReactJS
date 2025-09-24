@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import Product from "../components/Product";
 import { useSearchParams, NavLink } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { increment, decrement } from "../slice/countSlice";
 
 const ProductPage = () => {
+  const count = useSelector((state) => state.count);
+  const dispatch = useDispatch();
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -41,6 +46,21 @@ const ProductPage = () => {
   return (
     <div>
       <h1>Comment</h1>
+      <button
+        onClick={() => {
+          dispatch(increment());
+        }}
+      >
+        Increase
+      </button>
+      <div>{count}</div>
+      <button
+        onClick={() => {
+          dispatch(decrement());
+        }}
+      >
+        Descrease
+      </button>
       {error && <div>{error}</div>}
       {loading && <div>Loading...</div>}
       {!loading && (

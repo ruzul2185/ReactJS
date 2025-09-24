@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 const Photo = () => {
+  const count = useSelector((state) => state.count);
   // state management for new data coming
   const [photo, setPhoto] = useState({});
 
@@ -36,6 +38,7 @@ const Photo = () => {
 
   return (
     <div key={photo.id}>
+      {count}
       {loading && <div>Loading...</div>}
       {error !== "" && <div>{error}</div>}
       {!loading && (
