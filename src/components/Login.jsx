@@ -1,30 +1,42 @@
 import { useEffect, useRef, useState } from "react";
 import Input from "./Input";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../slice/authSlice";
 
 const Login = () => {
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({});
 
   const fileRef = useRef(null);
 
+  // useEffect(() => {
+  //   console.log(fileRef.current);
+  // }, [fileRef]);
+
   useEffect(() => {
-    console.log(fileRef.current);
-  }, [fileRef]);
+    console.log(auth);
+  }, [auth]);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const handleUserData = (event) => {
-    const { key, value } = event.target;
-    setUserData({ ...userData, [key]: value });
+    const { name, value } = event.target;
+    setUserData({ ...userData, [name]: value });
   };
 
   const getFile = () => {
     fileRef.current.click();
   };
+
+  const submitHandler = () => {
+    dispatch(login(userData));
+  };
   return (
     <div style={{ position: "relative" }}>
       <h1>Login</h1>
       <Input
-        label="Username"
+        label="username"
         type="text"
         placeholder="Enter Username"
         handleUserData={handleUserData}
@@ -46,7 +58,7 @@ const Login = () => {
         Upload Photo
       </div>
       <Input
-        label="Password"
+        label="password"
         type={showPassword ? "text" : "password"}
         placeholder="Enter Password"
         handleUserData={handleUserData}
@@ -58,7 +70,13 @@ const Login = () => {
       >
         Show Password
       </div>
-      <button type="submit">Submit</button>
+      {!auth.loading ? (
+        <button type="submit" onClick={submitHandler}>
+          Submit
+        </button>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };
